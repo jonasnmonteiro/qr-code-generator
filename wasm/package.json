@@ -1,0 +1,25 @@
+{
+  "name": "@qrcode-generator/wasm",
+  "version": "1.0.0",
+  "description": "High-performance WebAssembly QR Code generation engine compiled from modern C++20",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build:wasm": "./build.sh",
+    "build:ts": "tsc",
+    "build": "npm run build:wasm && npm run build:ts"
+  },
+  "keywords": [
+    "qrcode",
+    "webassembly",
+    "wasm",
+    "vector",
+    "svg",
+    "cpp"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
