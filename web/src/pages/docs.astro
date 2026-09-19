@@ -16,8 +16,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
           Use the Go server for high-throughput batch generation and backend integration:
         </p>
-        <pre style="background: var(--bg-input); padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; color: #E2E8F0;">
-POST /api/v1/generate/svg
+        <pre style="background: var(--bg-input); padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; color: #E2E8F0;">{`POST /api/v1/generate/svg
 Content-Type: application/json
 
 {
@@ -33,7 +32,7 @@ Content-Type: application/json
     "color_start": "#4F46E5",
     "color_end": "#06B6D4"
   }
-}</pre>
+}`}</pre>
       </section>
 
       <section class="glass-panel" style="padding: 28px;">
@@ -41,15 +40,14 @@ Content-Type: application/json
         <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
           Import the compiled WebAssembly package to generate QR codes client-side in sub-millisecond intervals:
         </p>
-        <pre style="background: var(--bg-input); padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; color: #E2E8F0;">
-import { initQrEngine, generateQrSvg } from '@qrcode-generator/wasm';
+        <pre style="background: var(--bg-input); padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; color: #E2E8F0;">{`import { initQrEngine, generateQrSvg } from '@qrcode-generator/wasm';
 
 await initQrEngine();
 const svg = await generateQrSvg({
   text: 'https://example.com',
   moduleStyle: 'fluid',
   size: 500
-});</pre>
+});`}</pre>
       </section>
 
       <section class="glass-panel" style="padding: 28px;">
