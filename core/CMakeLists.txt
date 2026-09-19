@@ -13,6 +13,8 @@ set(CORE_SOURCES
     src/QrCode.cpp
     src/QrTopology.cpp
     src/QrShapeRenderer.cpp
+    src/QrEyeRenderer.cpp
+    src/QrSvgBuilder.cpp
 )
 
 add_library(qrcode_core STATIC ${CORE_SOURCES})
@@ -21,3 +23,7 @@ enable_testing()
 add_executable(test_topology tests/test_topology.cpp)
 target_link_libraries(test_topology PRIVATE qrcode_core)
 add_test(NAME TopologyTest COMMAND test_topology)
+
+add_executable(test_svg tests/test_svg.cpp)
+target_link_libraries(test_svg PRIVATE qrcode_core)
+add_test(NAME SvgTest COMMAND test_svg)
