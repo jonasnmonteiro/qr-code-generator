@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="API Documentation & SDK Guide">
+  <div style="max-width: 900px; margin: 0 auto; padding: 48px 24px;">
+    <h1 style="font-size: 36px; font-weight: 800; margin-bottom: 12px;">Architecture & API Documentation</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 40px;">
+      Explore how to integrate the C++20 core engine, WebAssembly SDK, and high-concurrency Go REST API into your applications.
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      
+      <section class="glass-panel" style="padding: 28px;">
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--accent-cyan);">1. Go HTTP API Endpoints</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+          Use the Go server for high-throughput batch generation and backend integration:
+        </p>
+        <pre style="background: var(--bg-input); padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; color: #E2E8F0;">
+POST /api/v1/generate/svg
+Content-Type: application/json
+
+{
+  "text": "https://example.com",
+  "ec_level": "H",
+  "canvas_size": 512,
+  "module_style": "fluid",
+  "background_color": "#FFFFFF",
+  "module_color": "#4F46E5",
+  "gradient": {
+    "type": "linear",
+    "rotation_degrees": 45,
+    "color_start": "#4F46E5",
+    "color_end": "#06B6D4"
+  }
+}</pre>
+      </section>
+
+      <section class="glass-panel" style="padding: 28px;">
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--primary);">2. WebAssembly Client SDK</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+          Import the compiled WebAssembly package to generate QR codes client-side in sub-millisecond intervals:
+        </p>
+        <pre style="background: var(--bg-input); padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; color: #E2E8F0;">
+import { initQrEngine, generateQrSvg } from '@qrcode-generator/wasm';
+
+await initQrEngine();
+const svg = await generateQrSvg({
+  text: 'https://example.com',
+  moduleStyle: 'fluid',
+  size: 500
+});</pre>
+      </section>
+
+      <section class="glass-panel" style="padding: 28px;">
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--accent-emerald);">3. Supported Module Geometries</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 14px; color: var(--text-secondary);">
+          <div>• <code>square</code>: Standard pixel grid</div>
+          <div>• <code>dots</code>: Circular isolated discs</div>
+          <div>• <code>rounded</code>: 4-neighbor adaptive curvature</div>
+          <div>• <code>extra-rounded</code>: Maximal continuous rounding</div>
+          <div>• <code>classy</code>: Beveled opposite chamfers</div>
+          <div>• <code>classy-rounded</code>: Smooth rounded bevels</div>
+          <div>• <code>fluid</code>: 4-quadrant continuous liquid mesh</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>

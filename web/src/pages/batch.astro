@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Batch QR Code Generator">
+  <div style="max-width: 900px; margin: 0 auto; padding: 48px 24px;">
+    <h1 style="font-size: 36px; font-weight: 800; margin-bottom: 12px;">Massive Batch Generator</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 32px;">
+      Generate hundreds or thousands of custom QR codes in seconds powered by the Go Goroutine worker pool.
+    </p>
+
+    <div class="glass-panel" style="padding: 28px; display: flex; flex-direction: column; gap: 20px;">
+      <div>
+        <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">
+          Paste Lines of Text / URLs (One per line)
+        </label>
+        <textarea
+          class="input-field"
+          rows="8"
+          placeholder="https://example.com/user/1&#10;https://example.com/user/2&#10;https://example.com/user/3"
+        ></textarea>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Output Format</label>
+          <select class="input-field">
+            <option value="svg">Vector SVG (ZIP)</option>
+            <option value="png">High-Res PNG (ZIP)</option>
+          </select>
+        </div>
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Module Style</label>
+          <select class="input-field">
+            <option value="fluid">Fluid Organic</option>
+            <option value="rounded">Rounded</option>
+            <option value="dots">Dots</option>
+            <option value="square">Square</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary" style="align-self: flex-start; margin-top: 8px;">
+        Start Batch Generation
+      </button>
+    </div>
+  </div>
+</BaseLayout>

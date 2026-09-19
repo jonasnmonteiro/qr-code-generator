@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "High-performance multi-target QR Code generator built with C++20, WebAssembly, Go, and Astro" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | QR Code Generator Suite</title>
+    <meta name="description" content={description} />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header style="border-bottom: 1px solid var(--border-glass); padding: 18px 24px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 50; background: rgba(9, 13, 22, 0.85);">
+      <div style="max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
+          <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--accent-cyan)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; color: white;">
+            QR
+          </div>
+          <span style="font-weight: 700; font-size: 18px; letter-spacing: -0.5px;">QR Code Generator</span>
+        </a>
+        <nav style="display: flex; gap: 20px; align-items: center;">
+          <a href="/" style="color: var(--text-primary); text-decoration: none; font-size: 14px; font-weight: 500;">Studio</a>
+          <a href="/batch" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;">Batch</a>
+          <a href="/docs" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;">API & Docs</a>
+          <a href="https://github.com/jonasnmonteiro/qr-code-generator" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size: 13px; padding: 6px 14px;">
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer style="border-top: 1px solid var(--border-glass); padding: 32px 24px; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 60px;">
+      <p>Built with C++20, WebAssembly, Go, and Astro • Licensed under MIT</p>
+    </footer>
+  </body>
+</html>
