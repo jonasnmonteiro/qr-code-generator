@@ -32,7 +32,7 @@ static int getNumDataCodewords(int ver, QrCode::Ecc ecl) {
 static int getNumRawDataModules(int ver) {
     int result = (16 * ver + 128) * ver + 64;
     if (ver >= 2) {
-        int numAlign = ver / 7 + 1;
+        int numAlign = ver / 7 + 2;
         result -= (25 * numAlign - 10) * numAlign - 55;
         if (ver >= 7) {
             result -= 36;
@@ -175,7 +175,7 @@ void QrCode::drawFunctionPatterns() {
 
     std::vector<int> alignPatPos;
     if (version > 1) {
-        int numAlign = version / 7 + 1;
+        int numAlign = version / 7 + 2;
         int step = (version == 32) ? 26 : (version * 4 + numAlign * 2 + 1) / (numAlign * 2 - 2) * 2;
         alignPatPos.push_back(6);
         for (int pos = size - 7; alignPatPos.size() < static_cast<std::size_t>(numAlign); pos -= step) {

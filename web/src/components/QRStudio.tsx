@@ -8,13 +8,75 @@ import {
   Layers,
   Palette,
   Eye,
-  Sliders,
-  Maximize,
-  RefreshCw
+  Sliders
 } from 'lucide-react';
 import { buildClientSvg, QRStudioState, ModuleStyle } from '../utils/qrRenderer';
+import { renderQrToCanvas } from '../utils/qrCanvasRenderer';
 
 const PRESETS: Array<{ name: string; state: Partial<QRStudioState> }> = [
+  {
+    name: 'Classic Black & White',
+    state: {
+      backgroundColor: '#FFFFFF',
+      moduleColor: '#000000',
+      moduleStyle: 'square',
+      gradient: {
+        type: 'none',
+        rotationDegrees: 0,
+        colorStart: '#000000',
+        colorEnd: '#000000',
+      },
+      eyeTopLeft: {
+        outerRadii: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        innerRadii: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        outerColor: '#000000',
+        innerColor: '#000000',
+      },
+      eyeTopRight: {
+        outerRadii: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        innerRadii: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        outerColor: '#000000',
+        innerColor: '#000000',
+      },
+      eyeBottomLeft: {
+        outerRadii: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        innerRadii: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        outerColor: '#000000',
+        innerColor: '#000000',
+      },
+    },
+  },
+  {
+    name: 'Indigo Pro',
+    state: {
+      backgroundColor: '#FFFFFF',
+      moduleStyle: 'fluid',
+      gradient: {
+        type: 'linear',
+        rotationDegrees: 45,
+        colorStart: '#1E1B4B',
+        colorEnd: '#4F46E5',
+      },
+      eyeTopLeft: {
+        outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
+        innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
+        outerColor: '#1E1B4B',
+        innerColor: '#4F46E5',
+      },
+      eyeTopRight: {
+        outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
+        innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
+        outerColor: '#1E1B4B',
+        innerColor: '#4F46E5',
+      },
+      eyeBottomLeft: {
+        outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
+        innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
+        outerColor: '#1E1B4B',
+        innerColor: '#4F46E5',
+      },
+    },
+  },
   {
     name: 'Cyberpunk Neon',
     state: {
@@ -23,88 +85,57 @@ const PRESETS: Array<{ name: string; state: Partial<QRStudioState> }> = [
       gradient: {
         type: 'linear',
         rotationDegrees: 45,
-        colorStart: '#EC4899',
-        colorEnd: '#06B6D4',
+        colorStart: '#00F0FF',
+        colorEnd: '#EC4899',
       },
       eyeTopLeft: {
         outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
         innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
-        outerColor: '#EC4899',
-        innerColor: '#06B6D4',
+        outerColor: '#00F0FF',
+        innerColor: '#EC4899',
       },
       eyeTopRight: {
         outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
         innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
-        outerColor: '#EC4899',
-        innerColor: '#06B6D4',
+        outerColor: '#00F0FF',
+        innerColor: '#EC4899',
       },
       eyeBottomLeft: {
         outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
         innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
-        outerColor: '#EC4899',
-        innerColor: '#06B6D4',
-      },
-    },
-  },
-  {
-    name: 'Emerald Luxe',
-    state: {
-      backgroundColor: '#061A14',
-      moduleStyle: 'rounded',
-      gradient: {
-        type: 'linear',
-        rotationDegrees: 135,
-        colorStart: '#10B981',
-        colorEnd: '#34D399',
-      },
-      eyeTopLeft: {
-        outerRadii: { topLeft: 3.5, topRight: 0, bottomRight: 3.5, bottomLeft: 0 },
-        innerRadii: { topLeft: 1.5, topRight: 0, bottomRight: 1.5, bottomLeft: 0 },
-        outerColor: '#10B981',
-        innerColor: '#34D399',
-      },
-      eyeTopRight: {
-        outerRadii: { topLeft: 0, topRight: 3.5, bottomRight: 0, bottomLeft: 3.5 },
-        innerRadii: { topLeft: 0, topRight: 1.5, bottomRight: 0, bottomLeft: 1.5 },
-        outerColor: '#10B981',
-        innerColor: '#34D399',
-      },
-      eyeBottomLeft: {
-        outerRadii: { topLeft: 0, topRight: 3.5, bottomRight: 0, bottomLeft: 3.5 },
-        innerRadii: { topLeft: 0, topRight: 1.5, bottomRight: 0, bottomLeft: 1.5 },
-        outerColor: '#10B981',
-        innerColor: '#34D399',
+        outerColor: '#00F0FF',
+        innerColor: '#EC4899',
       },
     },
   },
   {
     name: 'Sunset Minimal',
     state: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#FFFDF9',
       moduleStyle: 'classy',
       gradient: {
         type: 'linear',
         rotationDegrees: 45,
-        colorStart: '#F97316',
+        colorStart: '#EA580C',
         colorEnd: '#DC2626',
       },
       eyeTopLeft: {
         outerRadii: { topLeft: 2.0, topRight: 2.0, bottomRight: 2.0, bottomLeft: 2.0 },
         innerRadii: { topLeft: 1.0, topRight: 1.0, bottomRight: 1.0, bottomLeft: 1.0 },
         outerColor: '#DC2626',
-        innerColor: '#F97316',
+        innerColor: '#EA580C',
       },
       eyeTopRight: {
         outerRadii: { topLeft: 2.0, topRight: 2.0, bottomRight: 2.0, bottomLeft: 2.0 },
         innerRadii: { topLeft: 1.0, topRight: 1.0, bottomRight: 1.0, bottomLeft: 1.0 },
         outerColor: '#DC2626',
-        innerColor: '#F97316',
+        innerColor: '#EA580C',
       },
       eyeBottomLeft: {
         outerRadii: { topLeft: 2.0, topRight: 2.0, bottomRight: 2.0, bottomLeft: 2.0 },
         innerRadii: { topLeft: 1.0, topRight: 1.0, bottomRight: 1.0, bottomLeft: 1.0 },
         outerColor: '#DC2626',
-        innerColor: '#F97316',
+        innerColor: '#EA580C',
       },
     },
   },
@@ -115,34 +146,34 @@ export default function QRStudio() {
     text: 'https://github.com/jonasnmonteiro/qr-code-generator',
     ecLevel: 'M',
     canvasSize: 450,
-    margin: 24,
-    backgroundColor: '#090D16',
-    moduleColor: '#6366F1',
+    margin: 28,
+    backgroundColor: '#FFFFFF',
+    moduleColor: '#1E1B4B',
     moduleStyle: 'fluid',
     moduleScale: 1.0,
     gradient: {
       type: 'linear',
       rotationDegrees: 45,
-      colorStart: '#6366F1',
-      colorEnd: '#06B6D4',
+      colorStart: '#1E1B4B',
+      colorEnd: '#4F46E5',
     },
     eyeTopLeft: {
       outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
       innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
-      outerColor: '#6366F1',
-      innerColor: '#06B6D4',
+      outerColor: '#1E1B4B',
+      innerColor: '#4F46E5',
     },
     eyeTopRight: {
       outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
       innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
-      outerColor: '#6366F1',
-      innerColor: '#06B6D4',
+      outerColor: '#1E1B4B',
+      innerColor: '#4F46E5',
     },
     eyeBottomLeft: {
       outerRadii: { topLeft: 3.5, topRight: 3.5, bottomRight: 3.5, bottomLeft: 3.5 },
       innerRadii: { topLeft: 1.5, topRight: 1.5, bottomRight: 1.5, bottomLeft: 1.5 },
-      outerColor: '#6366F1',
-      innerColor: '#06B6D4',
+      outerColor: '#1E1B4B',
+      innerColor: '#4F46E5',
     },
     logo: {
       shape: 'none',
@@ -183,28 +214,14 @@ export default function QRStudio() {
     URL.revokeObjectURL(url);
   };
 
-  const downloadPng = (scaleMultiplier = 2) => {
+  const downloadPng = (targetDimension = 1024) => {
     const canvas = document.createElement('canvas');
-    const size = state.canvasSize * scaleMultiplier;
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const img = new Image();
-    const svgBlob = new Blob([svgOutput], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(svgBlob);
-
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0, size, size);
-      const pngUrl = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = pngUrl;
-      link.download = `qrcode_${size}x${size}.png`;
-      link.click();
-      URL.revokeObjectURL(url);
-    };
-    img.src = url;
+    renderQrToCanvas(canvas, state, targetDimension);
+    const pngUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = pngUrl;
+    link.download = `qrcode_${targetDimension}x${targetDimension}.png`;
+    link.click();
   };
 
   const copySvg = () => {
@@ -281,7 +298,7 @@ export default function QRStudio() {
                   </label>
                   <input
                     type="range"
-                    min="0"
+                    min="10"
                     max="60"
                     className="slider-custom"
                     value={state.margin}
@@ -350,6 +367,7 @@ export default function QRStudio() {
                   >
                     <option value="none">Solid Color</option>
                     <option value="linear">Linear Gradient</option>
+                    <option value="radial">Radial Gradient</option>
                   </select>
                 </div>
               </div>
@@ -380,19 +398,21 @@ export default function QRStudio() {
                       />
                     </div>
                   </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                      Rotation: {state.gradient.rotationDegrees}°
-                    </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="360"
-                      className="slider-custom"
-                      value={state.gradient.rotationDegrees}
-                      onChange={(e) => setState({ ...state, gradient: { ...state.gradient, rotationDegrees: Number(e.target.value) } })}
-                    />
-                  </div>
+                  {state.gradient.type === 'linear' && (
+                    <div>
+                      <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        Rotation: {state.gradient.rotationDegrees}°
+                      </label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="360"
+                        className="slider-custom"
+                        value={state.gradient.rotationDegrees}
+                        onChange={(e) => setState({ ...state, gradient: { ...state.gradient, rotationDegrees: Number(e.target.value) } })}
+                      />
+                    </div>
+                  )}
                 </>
               ) : (
                 <div>
@@ -509,7 +529,7 @@ export default function QRStudio() {
                       <input
                         type="range"
                         min="0.1"
-                        max="0.35"
+                        max="0.30"
                         step="0.02"
                         className="slider-custom"
                         value={state.logo.scale}
@@ -548,8 +568,8 @@ export default function QRStudio() {
             <button className="btn-primary" onClick={downloadSvg}>
               <Download size={16} /> Export SVG
             </button>
-            <button className="btn-secondary" onClick={() => downloadPng(2)}>
-              <Download size={16} /> Export PNG (2x)
+            <button className="btn-secondary" onClick={() => downloadPng(1024)}>
+              <Download size={16} /> Export PNG (1024px)
             </button>
             <button className="btn-secondary" onClick={copySvg}>
               {copied ? <Check size={16} color="#10B981" /> : <Copy size={16} />} {copied ? 'Copied!' : 'Copy SVG'}
